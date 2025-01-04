@@ -63,15 +63,18 @@ def dashboard():
             db.session.add(new_income)
             db.session.commit()
             flash("Income added successfully!", "success")
+            return redirect(url_for('dashboard'))
 
         elif "add_expense" in request.form:
-        # para añadir Expense
+            print("hello")
+            # para añadir Expense
             amount = request.form["expense_amount"]
             description = request.form["expense_description"]
             new_expense = Expense(amount=amount, description=description, user_id=current_user.id)
             db.session.add(new_expense)
             db.session.commit()
             flash("Expense added successfully!", "success")
+            return redirect(url_for('dashboard'))
 
     # Obtener datos de ingresos y gastos para mostrar en el "Dashboard".
     incomes = db.session.query(Income).filter_by(user_id=current_user.id).all()
